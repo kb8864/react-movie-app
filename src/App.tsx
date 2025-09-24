@@ -45,10 +45,12 @@ const fetchMovieList =async() => {
     );
 
     const data = await response.json();
-    console.log(data)
+    console.log(data.results);
+    setMovieList(data.results); 
 }
 
-const [keyword,setKeyword] =useState("");
+const [keyword,setKeyword] = useState("");
+const [movieList, setMovieList] = useState([]);
   useEffect(() => {
     fetchMovieList();
   }, []);
@@ -56,9 +58,7 @@ const [keyword,setKeyword] =useState("");
 return(
   <div>
     <input type="text" onChange={(e) => setKeyword(e.target.value)} />
-    <div>{keyword}</div>
-
-    {defaultMovieList.filter((movie) => movie.name.includes(keyword))
+    {movieList.filter((movie) => movie.name.includes(keyword))
     .map((movie) => (
       <div key={movie.id}>
         <h2>{movie.name}</h2>
