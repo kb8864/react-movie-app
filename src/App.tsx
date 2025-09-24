@@ -1,8 +1,9 @@
 
 import './App.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 function App() {
-
+  // .envで設定した環境変数を読み込む
+    const apiKey = import.meta.env.VITE_TMDB_API_KEY;
     const defaultMovieList = [
     {
       id: 1,
@@ -32,8 +33,25 @@ function App() {
     },
   ];
   
+const fetchMovieList =async() => {
+  // APIを取得するときに使う
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/popular?language=ja&page=1`,
+      {
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+    console.log(data)
+}
 
 const [keyword,setKeyword] =useState("");
+  useEffect(() => {
+    fetchMovieList();
+  }, []);
 
 return(
   <div>
