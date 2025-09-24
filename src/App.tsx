@@ -58,16 +58,17 @@ const [movieList, setMovieList] = useState([]);
 return(
   <div>
     <input type="text" onChange={(e) => setKeyword(e.target.value)} />
-    {movieList.filter((movie) => movie.name.includes(keyword))
+    {movieList.filter((movie) => movie.original_title.includes(keyword))
     .map((movie) => (
       <div key={movie.id}>
-        <h2>{movie.name}</h2>
-        <img src={movie.image} alt={movie.name}/>
+        <h2>{movie.original_title}</h2>
+        <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+        alt={movie.original_title}/>
         <p>{movie.overview}</p>
       </div>
     ))}
   </div>
-
+ 
 )
 }
 export default App
