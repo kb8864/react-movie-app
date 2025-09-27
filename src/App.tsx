@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 type Movie ={
   id: number;
   original_title: string;
-  poster_path: string;
+  poster_path: string | null;
   overview: string;
 }
 
@@ -14,7 +14,7 @@ type MovieJson = {
   adult: boolean;
   backdrop_path: string | null;
   genre_ids: number[];
-  id: string;
+  id: number;
   original_language: string;
   original_title: string;
   overview: string;
@@ -71,8 +71,13 @@ const fetchMovieList =async() => {
     );
 
     const data = await response.json();
-    console.log(data.results);
-    setMovieList(data.results); 
+    setMovieList(data.results.map((movie: MovieJson) =>({
+        id: movie.id,
+        original_title: movie.original_title,
+        poster_path: movie.poster_path,
+        overview: movie.overview,
+    }))
+  )
 }
 
 const [keyword,setKeyword] = useState("");
@@ -81,20 +86,23 @@ const [movieList, setMovieList] = useState<Movie[]>([]);
     fetchMovieList();
   }, []);
 
-return(
-  <div>
-    <input type="text" onChange={(e) => setKeyword(e.target.value)} />
-    {movieList.filter((movie) => movie.original_title.includes(keyword))
-    .map((movie) => (
-      <div key={movie.id}>
-        <h2>{movie.original_title}</h2>
-        <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-        alt={movie.original_title}/>
-        <p>{movie.overview}</p>
-      </div>
-    ))}
-  </div>
- 
-)
+  return (
+    <div>
+      <div>{keyword}</div>
+      <input type="text" onChange={(e) => setKeyword(e.target.value)} />
+      {movieList
+        .filter((movie) => movie.original_title.includes(keyword))
+        .map((movie) => (
+          <div key={movie.id}>
+            <h2>{movie.original_title}</h2>
+            <img
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              alt={movie.original_title}
+            />
+            <p>{movie.overview}</p>
+          </div>
+        ))}
+    </div>
+  );
 }
 export default App
