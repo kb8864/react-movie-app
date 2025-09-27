@@ -60,6 +60,14 @@ function App() {
   ];
   
 const fetchMovieList =async() => {
+    const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+    let url = "";  
+  if (keyword){
+      url = `https://api.themoviedb.org/3/search/movie?query=${keyword}&include_adult=false&language=ja&page=1`;
+  }else{
+      url = "https://api.themoviedb.org/3/movie/popular?language=ja&page=1";
+  }
+
   // APIを取得するときに使う
     const response = await fetch(
       `https://api.themoviedb.org/3/movie/popular?language=ja&page=1`,
@@ -82,9 +90,10 @@ const fetchMovieList =async() => {
 
 const [keyword,setKeyword] = useState("");
 const [movieList, setMovieList] = useState<Movie[]>([]);
+
   useEffect(() => {
     fetchMovieList();
-  }, []);
+  }, [keyword]);
 
   return (
     <div>
