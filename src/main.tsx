@@ -10,12 +10,11 @@ const router = createBrowserRouter([
   { path: "/movies/:movieId", Component: MovieDetail },
 ]);
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
-
+// createRoot(document.getElementById('root')!).render(
+//   <StrictMode>
+//     <App />
+//   </StrictMode>,
+// )
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -23,8 +22,9 @@ createRoot(document.getElementById("root")!).render(
   </StrictMode>
 );
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <MovieDetail></MovieDetail>
-  </StrictMode>
-)
+
+// createRoot(document.getElementById("root")!).render(
+//   <StrictMode>
+//     <MovieDetail></MovieDetail>
+//   </StrictMode>
+//)
