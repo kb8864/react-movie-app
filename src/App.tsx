@@ -60,7 +60,7 @@ function App() {
   ];
   
 const fetchMovieList =async() => {
-    const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+//    const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
     let url = "";  
   if (keyword){
       url = `https://api.themoviedb.org/3/search/movie?query=${keyword}&include_adult=false&language=ja&page=1`;
