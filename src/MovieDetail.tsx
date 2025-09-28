@@ -57,7 +57,7 @@ type MovieDetailJson = {
 function MovieDetail(){
 // URLの中に“どの映画か”を表すIDが入っている時に、そのID（123）を取り出すのが useParams
     const { movieId} = useParams();
-    const {movie, setMovie} = useState<Movie |  null>(null)
+    const [movie, setMovie] = useState<Movie |  null>(null)
     const fetchMovieDetail = async () =>{
         const response = await fetch(
       `https://api.themoviedb.org/3/movie/${movieId}?language=ja&page=1&append_to_response=credits`,
@@ -89,7 +89,7 @@ useEffect (() =>{
     <div> 
         {movie &&(
         <div><h2>{movie.original_title}</h2>
-        <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/${movie?.poster_path}"/>        
+        <img src={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2/${movie?.poster_path}`} alt={movie.original_title}/>        
         <p>{movie.overview}</p>
         <p>{movie.year}</p>
         <p>{movie.rating}</p>
